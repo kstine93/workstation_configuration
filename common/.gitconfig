@@ -1,0 +1,27 @@
+#Open the global .gitconfig with `git config --global --edit`
+
+[core]
+	editor = "code --wait" #Using VSCode as git editor
+	#Convert carriage-return + line-feed (CRLF) newlines into just
+	#line-feeds (LF) if git sees them. Makes newlines compatible with Unix.
+	autocrlf = input
+	eol = lf
+	excludesfile = ~/.gitignore
+[user]
+	email = kstine93@gmail.com
+	name = Kevin Stine
+[push]
+	autoSetupRemote = true
+[alias]
+#For pretty-printing git log graphs
+#Adapted from Stack Overflow: https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
+logtree = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+logtree-ext = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+logi = log --oneline
+br = branch --sort=-committerdate
+sdf = diff --staged
+cp = cherry-pick
+[color]
+	ui = true
+[credential]
+	helper = manager-core
