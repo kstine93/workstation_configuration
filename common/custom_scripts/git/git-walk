@@ -1,0 +1,4 @@
+#!/bin/sh
+ARG=$(git rev-parse --sq-quote "$@")
+CMD="git-walk.sh $ARG"
+eval $CMD
