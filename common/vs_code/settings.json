@@ -1,0 +1,6 @@
+{
+    "workbench.colorTheme": "Visual Studio Dark",
+    "gitlens.ai.model": "vscode",
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+}
