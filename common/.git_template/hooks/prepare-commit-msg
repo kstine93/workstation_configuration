@@ -23,6 +23,13 @@
 #   chmod +x .git/hooks/prepare-commit-msg
 #
 
+# Tip from https://stackoverflow.com/questions/19387073/how-to-detect-commit-amend-by-pre-commit-hook
+# to detect amend commits:
+IS_AMEND=$(ps -ocommand= -p $PPID | grep -e '--amend');
+if [ -n "$IS_AMEND" ]; then
+  exit 0
+fi
+
 # Get the current branch name from git
 branchname=$(git rev-parse --abbrev-ref HEAD)
 
