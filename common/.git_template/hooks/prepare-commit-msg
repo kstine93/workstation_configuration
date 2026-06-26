@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# Commit Hook: Prefix commits with Clickup ticket number
+#
+# Authors:
+#   Stefan Buck (https://github.com/stefanbuck)
+#   Thomas Ruoff (https://github.com/tomru)
+#   Kevin Stine (kstine93@gmail.com)
+#
+# What this pre-commit hook does:
+#   If your branch name has a Clickup ticket number in it (e.g., 'CU-869dcmqqc'), this will ensure all commits have that
+#   same ticket number prefixed on commits (e.g., "This is my commit message" -> "[CU-869dcmqqc] This is my commit message")
+#
+# Installation:
+#
+#   Either copy this script to
+#   your/awesome/project/.git/hooks/prepare-commit-msg
+#
+#   Or create a global git template that gets copied each time you create or clone a git repository
+#   git config --global init.templatedir '~/.git_template/'
+#
+#   Because this is a regular script file, we need to make it executable:
+#   chmod +x .git/hooks/prepare-commit-msg
+#
+
+# Get the current branch name from git
+branchname=$(git rev-parse --abbrev-ref HEAD)
+
+function prefixCommitMessage {
+    filename=$1
+    prefix=$2
+
+    originalmessage=$(cat "$filename")
+
+    if [[ $originalmessage == $prefix* ]]
+        then
+        exit 0
+    fi
+
+    # Wraps prefix in brackets and adds it to the commit message if it doesn't already exist
+    echo "[$prefix] $originalmessage" > "$filename"
+}
+# Clickup tickets are prefixed with CU-<ticket number>, such as 'CU-869dcmqqc'
+CLICKUP_TICKET_REGEX="CU-[0-9a-z]+"
+
+if echo "$branchname" | grep -E "$CLICKUP_TICKET_REGEX" > /dev/null; then
+    prefixCommitMessage "$1" "$(echo "$branchname" | awk 'BEGIN{ FS="-"; OFS=FS } { print toupper($1),$2 }')"
+    exit
+fi
