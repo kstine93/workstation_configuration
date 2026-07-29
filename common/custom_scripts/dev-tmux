@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Simple script to start up tmux with default layout that I enjoy
+tmux new-session \; split-window -h \; clock-mode \; split-window -v \; select-pane -t 0
