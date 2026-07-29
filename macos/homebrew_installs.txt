@@ -8,7 +8,9 @@ grep
 helm
 kubernetes-cli
 minikube
+neovim
 pyenv
 terragrunt
+tmux
 tfenv
 pomatez
